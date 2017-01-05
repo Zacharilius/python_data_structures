@@ -47,7 +47,7 @@ class TestLinkedList(unittest.TestCase):
 
 	# === Test LinkedList methods ===
 
-	TEST_LIST = [1, 66, 44, 231, -44, 55, 100]
+	TEST_LIST = [1, 66, 44, 231, -44, 55, 100, 22, 55]
 
 	def test_insert_elements_in_list(self):
 		linked_list = self.insert_list_elems_into_linked_list(self.TEST_LIST)
@@ -58,6 +58,11 @@ class TestLinkedList(unittest.TestCase):
 		linked_list = self.insert_list_elems_into_linked_list(self.TEST_LIST)
 		linked_list.clear()
 		self.assertTrue(linked_list.is_empty())
+
+	def test_find_middle_value(self):
+		linked_list = self.append_list_elems_into_linked_list(self.TEST_LIST)
+		middle_value = linked_list.get_middle_value()
+		self.assertTrue(middle_value == self.TEST_LIST[len(self.TEST_LIST) // 2 - 1])
 
 if __name__ == '__main__':
 	unittest.main()

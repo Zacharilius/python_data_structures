@@ -17,9 +17,6 @@ class LinkedList(object):
 	def __init__(self):
 		self.head = None
 
-	def is_empty(self):
-		return self.head is None
-
 	def insert(self, data):
 		old_head = self.head
 		self.head = Node(data)
@@ -35,6 +32,27 @@ class LinkedList(object):
 			node = node.get_next()
 		node.set_next(new_node)
 
+	def get_middle_value(self):
+		size = self.get_size()
+		node = self.head
+		for _ in range(size // 2 - 1):
+			node = node.get_next()
+		return node.get_data()
+
+
+	def get_size(self):
+		if self.head == None:
+			return 0
+		node = self.head
+		size = 1
+		while node.get_next() is not None:
+			size += 1
+			node = node.get_next()
+		return size
+
+	def is_empty(self):
+		return self.head is None
+
 	def remove(self, location):
 		if location == 0:
 			removing_head = self.head
@@ -49,6 +67,9 @@ class LinkedList(object):
 		prev_node.set_next(node.get_next())
 		return removing_node
 
+	def clear(self):
+		self.head = None
+
 	def convert_to_list(self):
 		node = self.head
 		linked_list_list = [node.get_data()]
@@ -56,6 +77,3 @@ class LinkedList(object):
 			node = node.get_next()
 			linked_list_list.append(node.get_data())
 		return linked_list_list
-
-	def clear(self):
-		self.head = None
