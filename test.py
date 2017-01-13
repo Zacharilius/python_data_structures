@@ -1,4 +1,7 @@
+from contextlib import redirect_stdout
 from data_structures.linked_list import LinkedList
+from data_structures.binary_search_tree import BinarySearchTree, TreeNode
+import io
 import unittest
 
 
@@ -64,5 +67,52 @@ class TestLinkedList(unittest.TestCase):
 		middle_value = linked_list.get_middle_value()
 		self.assertTrue(middle_value == self.TEST_LIST[len(self.TEST_LIST) // 2 - 1])
 
+class TestBinarySearchTree(unittest.TestCase):
+    def insert_list_elems_into_binary_search_tree(self, list):
+        bst = BinarySearchTree()
+        for elem in list:
+            node = TreeNode(elem)
+            bst.insert(node)
+        return bst
+
+    # === Test BST Insert ===
+
+    TEST_LIST = [1, 66, 44, 231, -44, 55, 100, 22, 55]
+
+    def test_bst_insert(self):
+        bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+
+    def test_bst_inorder(self):
+        bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        with redirect_stdout(f):
+            bst.inorder()
+        output = f.getvalue()
+        outouts = output.split('\n')
+        outouts = [int(o) for o in outouts if o != '']
+        self.TEST_LIST.sort()
+        self.assertTrue(self.TEST_LIST == outouts)
+
+    def test_bst_preorder(self):
+        bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        with redirect_stdout(f):
+            bst.preorder()
+
+    def test_bst_postorder(self):
+        bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        with redirect_stdout(f):
+            bst.postorder()
+
+    def test_bst_height(self):
+        bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        bst_height = bst.height()
+        self.assertTrue(bst_height == 5)
+
+
+# === Test Util ===
+
+f = io.StringIO()
+
+
+# === Main ===
 if __name__ == '__main__':
 	unittest.main()
