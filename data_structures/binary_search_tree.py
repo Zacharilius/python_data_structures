@@ -99,9 +99,10 @@ class BinarySearchTree:
             self._postorder(self.root)
 
     def _postorder(self, current_node):
-        print(current_node.get_data())
         if current_node.has_left():
             self._postorder(current_node.get_left())
         if current_node.has_right():
             self._postorder(current_node.get_right())
+        print(current_node.get_data())
+
 

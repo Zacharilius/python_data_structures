@@ -84,23 +84,32 @@ class TestBinarySearchTree(unittest.TestCase):
 
     def test_bst_inorder(self):
         bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        f = io.StringIO()
         with redirect_stdout(f):
             bst.inorder()
-        output = f.getvalue()
-        outouts = output.split('\n')
-        outouts = [int(o) for o in outouts if o != '']
-        self.TEST_LIST.sort()
-        self.assertTrue(self.TEST_LIST == outouts)
+        outputs = convert_f_to_list(f)
+        expected_inorder_traversal = [-44, 1, 22, 44, 55, 55, 66, 100, 231]
+        self.assertTrue(expected_inorder_traversal == outputs)
 
     def test_bst_preorder(self):
         bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        f = io.StringIO()
         with redirect_stdout(f):
             bst.preorder()
+        outputs = convert_f_to_list(f)
+        print(outputs)
+        expected_preorder_traversal = [1, -44, 66, 44, 22, 55, 55, 231, 100]
+        self.assertTrue(expected_preorder_traversal == outputs)
 
     def test_bst_postorder(self):
         bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
+        f = io.StringIO()
         with redirect_stdout(f):
             bst.postorder()
+        outputs = convert_f_to_list(f)
+        print(outputs)
+        expected_postorder_traversal = [-44, 22, 55, 55, 44, 100, 231, 66, 1]
+        self.assertTrue(expected_postorder_traversal == outputs)
 
     def test_bst_height(self):
         bst = self.insert_list_elems_into_binary_search_tree(self.TEST_LIST)
@@ -110,8 +119,11 @@ class TestBinarySearchTree(unittest.TestCase):
 
 # === Test Util ===
 
-f = io.StringIO()
-
+def convert_f_to_list(f):
+    f_value = f.getvalue()
+    outputs = f_value.split('\n')
+    outputs = [int(o) for o in outputs if o != '']
+    return outputs
 
 # === Main ===
 if __name__ == '__main__':
